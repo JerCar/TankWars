@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Sprite
+comment1.params=x\ y
+comment1.target=Sprite(int,\ int)
+comment10.params=
+comment10.target=java.awt.Rectangle\ getBounds()
+comment2.params=
+comment2.target=void\ getImageDimensions()
+comment3.params=imageName
+comment3.target=void\ loadImage(java.lang.String)
+comment4.params=
+comment4.target=java.awt.Image\ getImage()
+comment5.params=
+comment5.target=java.lang.String\ getHeading()
+comment6.params=
+comment6.target=int\ getX()
+comment7.params=
+comment7.target=int\ getY()
+comment8.params=
+comment8.target=boolean\ isVisible()
+comment9.params=visible
+comment9.target=void\ setVisible(boolean)
+numComments=11
