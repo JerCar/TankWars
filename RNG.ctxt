@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=RNG
+comment1.params=min\ max
+comment1.target=java.lang.String\ getRandomDirection(int,\ int)
+numComments=2

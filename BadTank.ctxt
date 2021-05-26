@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=BadTank
+comment0.text=\r\n\ Jer's\ Tank\ Wars\r\n\ @author\ Jeremy\ Carrothers\r\n\ @version\ 1.0\r\n
+comment1.params=x\ y
+comment1.target=BadTank(int,\ int)
+comment2.params=
+comment2.target=void\ initBadTank()
+comment3.params=
+comment3.target=void\ move()
+numComments=4

@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Wall
+comment1.params=x\ y
+comment1.target=Wall(int,\ int)
+comment2.params=imageName
+comment2.target=void\ loadImage(java.lang.String)
+comment3.params=
+comment3.target=void\ initWall()
+numComments=4
