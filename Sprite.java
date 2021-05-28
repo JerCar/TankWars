@@ -23,6 +23,7 @@ public class Sprite
     protected String heading; // trying to make the missiles work
     
     
+    
     public Sprite(int x, int y) { // assign the instance variables and visibility
         this.x = x;
         this.y = y;

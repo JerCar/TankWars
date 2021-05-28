@@ -17,7 +17,7 @@ public class Tank extends Sprite
     public int dx;
     public int dy;
     private List<Missile> missiles; // all shots fired by the tank are stored here
-    protected static String heading; 
+    
     
     public Tank(int x, int y) {
         super(x,y);
@@ -116,8 +116,8 @@ public class Tank extends Sprite
     
     // when we fire a missile, a new missile object is added to the 
     // missiles list. it is kept in the list until collision or goes out of window
-    public void fire() {
-        String h = Tank.heading;
+    protected void fire() {
+        String h = heading;
         missiles.add(new Missile(x + width, y + height / 2, h));
     }
     

@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Board extends JPanel implements ActionListener
 {
@@ -38,9 +39,11 @@ public class Board extends JPanel implements ActionListener
     // private boolean canMove;
     private int tankLives = 3;
     private boolean tankHit = false;
+    private boolean gameStarting = true;
+    
     
     private final int[][] badtankPos = {
-        {450, 250}, {350, 200}, {100, 100}, {150, 120}
+        {700,200}, {700,300}, {700,400}, {700,500}, {700,600}, {700,100}
     };
     
     
@@ -58,12 +61,16 @@ public class Board extends JPanel implements ActionListener
     }
     
     private void initBoard() {
+        
         addKeyListener(new TAdapter());
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         setBackground(Color.GREEN);
         setFocusable(true); // must be used for KeyListener
-        inGame = true;
-        // canMove = true;
+        
+        
+        //inGame = true;
+        
+        
         
         tank = new Tank(ICRAFT_X, ICRAFT_Y);
         
@@ -96,10 +103,21 @@ public class Board extends JPanel implements ActionListener
         
         if (tankLives < 1) { inGame = false; }
         
-        if (inGame) {
-            drawObjects(g);
+        if (gameStarting && tank.x == ICRAFT_X && tank.y == ICRAFT_Y) {
+            drawGameStarting(g); 
+            inGame = true;
         }
-        else {
+        
+        else if (gameStarting) {
+            //inGame = true;
+            gameStarting = false;
+        }
+        
+        else if (inGame) {
+            drawObjects(g);            
+        }
+        
+        else if ((!inGame) && !(gameStarting)) {
             drawGameOver(g);
         }
         
@@ -107,6 +125,7 @@ public class Board extends JPanel implements ActionListener
     }
     
     private void drawObjects(Graphics g) {
+                
         if (tank.isVisible()) {
             if (tankHit == false) {
                 g.drawImage(tank.getImage(), tank.getX(), tank.getY(), this);
@@ -118,6 +137,7 @@ public class Board extends JPanel implements ActionListener
         }
         
         List<Missile> ms = tank.getMissiles();
+        
         
         for (Missile missile : ms) {
             if (missile.isVisible()) {
@@ -152,7 +172,17 @@ public class Board extends JPanel implements ActionListener
         g.drawString(msg, (B_WIDTH - fm.stringWidth(msg)) / 2, B_HEIGHT /2);
     }
     
-    
+    private void drawGameStarting(Graphics g) {
+        String msg = "[+]Jer's Tank Wars[+]";
+        String msgDirection = "[+]Press an arrow key to start[+]";
+        Font small = new Font("Helvetica", Font.BOLD, 28);
+        FontMetrics fm = getFontMetrics(small);
+        
+        g.setColor(Color.black);
+        g.setFont(small);
+        g.drawString(msg, (B_WIDTH - fm.stringWidth(msg)) / 2, B_HEIGHT /2);
+        g.drawString(msgDirection, (B_WIDTH - fm.stringWidth(msgDirection)) / 2, (B_HEIGHT + 55 )/2);
+    }   
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -208,6 +238,22 @@ public class Board extends JPanel implements ActionListener
             }
         }
     }
+    
+    private void updateBadMissiles() {
+    
+        List<Missile> ms = tank.getMissiles();
+        
+        for (int i = 0; i < ms.size(); i++) {
+            Missile m = ms.get(i);
+            
+            if (m.isVisible()) {
+                m.move();                
+            }
+            else {
+                ms.remove(i);
+            }
+        }
+    }   
     
     private void updateWalls() {
     
@@ -292,6 +338,8 @@ public class Board extends JPanel implements ActionListener
                     }
                 }           
             }
+            
+            if (badtanks.size() == 0) { inGame = false; }
         }
         
         // check for badtanks hitting outer edges
@@ -329,6 +377,7 @@ public class Board extends JPanel implements ActionListener
             if (badtank.x == tank.x) {
                 if (badtank.y <= tank.y) {
                     badtank.heading = "D";
+                    
                     continue;
                 }
                 else if (badtank.y >= tank.y) { 
